@@ -1,0 +1,28 @@
+{
+  "name": "brad",
+  "version": "1.0.0",
+  "description": "template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "brad zingle",
+  "license": "ISC",
+  "dependencies": {
+    "app-root-path": "^2.1.0",
+    "bcryptjs": "^2.4.3",
+    "config": "^2.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.16.3",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^3.13.0",
+    "joi": "^13.6.0",
+    "joi-objectid": "^2.0.0",
+    "jsonwebtoken": "^8.5.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.2.14",
+    "morgan": "^1.9.1",
+    "nodemailer": "^4.7.0",
+    "winston": "^3.2.1"
+  }
+}

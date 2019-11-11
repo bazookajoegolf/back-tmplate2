@@ -1,0 +1,84 @@
+ 2018-12-17T17:40:03.981Z [error logging] error: err.message
+ 2018-12-17T17:41:41.593Z [error logging] error: err.message
+ 2018-12-17T17:43:26.781Z [error logging] error: promise error
+ 2018-12-17T17:45:36.047Z [error logging] error: promise error
+ 2018-12-17T17:46:13.104Z [error logging] error: promise error
+ 2019-03-04T19:33:55.944Z [error logging] error: Error: Cannot find module 'jsonwebtoken'
+ 2019-03-04T19:35:43.805Z [error logging] error: Error: Cannot find module 'bcrypt'
+ 2019-03-04T19:36:32.314Z [error logging] error: Error: Cannot find module 'nodemailer'
+ 2019-03-26T20:50:30.668Z [error logging] error: SyntaxError: Unexpected token )
+ 2019-03-26T20:51:08.278Z [error logging] error: SyntaxError: Unexpected token )
+ 2019-03-26T20:51:21.577Z [error logging] error: SyntaxError: Unexpected token )
+ 2019-03-26T20:51:49.306Z [error logging] error: SyntaxError: Unexpected token )
+ 2019-04-01T17:46:53.863Z [error logging] error: SyntaxError: missing ) after argument list
+ 2019-04-01T21:11:53.411Z [error logging] error: SyntaxError: missing ) after argument list
+ 2019-04-01T21:19:07.382Z [error logging] error: SyntaxError: missing ) after argument list
+ 2019-04-03T17:13:58.808Z [error logging] error: SyntaxError: Unexpected token )
+ 2019-04-03T17:14:40.373Z [error logging] error: SyntaxError: Unexpected token )
+ 2019-04-03T17:14:42.659Z [error logging] error: SyntaxError: Unexpected token )
+ 2019-04-03T21:25:45.655Z [error logging] error: SyntaxError: Unexpected token )
+ 2019-04-03T21:26:04.839Z [error logging] error: SyntaxError: Unexpected token )
+ 2019-04-03T21:27:46.377Z [error logging] error: SyntaxError: Unexpected token catch
+ 2019-04-03T21:28:09.822Z [error logging] error: SyntaxError: Unexpected token catch
+ 2019-04-03T21:31:16.473Z [error logging] error: SyntaxError: Unexpected token catch
+ 2019-04-03T21:32:55.861Z [error logging] error: SyntaxError: Unexpected token catch
+ 2019-04-03T21:34:32.344Z [error logging] error: SyntaxError: Unexpected token catch
+ 2019-04-17T18:49:53.146Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2019-04-17T18:50:41.712Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2019-04-17T18:51:24.777Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2019-04-17T18:52:46.424Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2019-04-17T18:53:48.215Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2019-04-17T19:00:10.601Z [error logging] error: SyntaxError: Unexpected identifier
+ 2019-04-17T19:46:53.066Z [error logging] error: SyntaxError: Unexpected token .
+ 2019-04-17T19:49:19.709Z [error logging] error: SyntaxError: Unexpected token ;
+ 2019-04-17T21:39:03.697Z [error logging] error: SyntaxError: Unexpected identifier
+ 2019-05-28T18:57:58.050Z [error logging] error: MongoError: E11000 duplicate key error collection: template.users index: email_1 dup key: { : "bb@shaw.ca" }
+ 2019-05-28T19:03:36.927Z [error logging] error: SyntaxError: Unexpected token .
+ 2019-06-07T20:15:55.453Z [error logging] error: Error: Cannot find module 'bcrypt'
+ 2019-06-07T20:15:57.568Z [error logging] error: Error: Cannot find module 'bcrypt'
+ 2019-06-07T20:16:05.593Z [error logging] error: Error: Cannot find module 'bcrypt'
+ 2019-06-18T21:38:56.935Z [error logging] error: Error: Cannot find module 'bcrypt'
+Require stack:
+- /home/brad/working/backend2/routes/users.js
+- /home/brad/working/backend2/startup/routes.js
+- /home/brad/working/backend2/index.js
+ 2019-06-18T21:40:13.270Z [error logging] error: Error: Cannot find module 'bcrypt'
+Require stack:
+- /home/brad/working/backend2/routes/users.js
+- /home/brad/working/backend2/startup/routes.js
+- /home/brad/working/backend2/index.js
+ 2019-06-18T21:40:50.745Z [error logging] error: Error: Cannot find module 'bcrypt'
+Require stack:
+- /home/brad/working/backend2/routes/auth.js
+- /home/brad/working/backend2/startup/routes.js
+- /home/brad/working/backend2/index.js
+ 2019-06-18T21:40:59.426Z [error logging] error: Error: Cannot find module 'bcrypt'
+Require stack:
+- /home/brad/working/backend2/routes/auth.js
+- /home/brad/working/backend2/startup/routes.js
+- /home/brad/working/backend2/index.js
+ 2019-06-18T21:41:14.892Z [error logging] error: Error: Cannot find module 'bcrypt'
+Require stack:
+- /home/brad/working/backend2/routes/reset.js
+- /home/brad/working/backend2/startup/routes.js
+- /home/brad/working/backend2/index.js
+ 2019-06-18T21:41:18.628Z [error logging] error: Error: Cannot find module 'bcrypt'
+Require stack:
+- /home/brad/working/backend2/routes/reset.js
+- /home/brad/working/backend2/startup/routes.js
+- /home/brad/working/backend2/index.js
+ 2019-06-27T18:00:51.068Z [error logging] error: Error: ENOENT: no such file or directory, open './config/public.key'
+ 2019-07-08T18:23:20.307Z [error logging] error: SyntaxError: missing ) after argument list
+ 2019-07-08T18:26:16.308Z [error logging] error: SyntaxError: missing ) after argument list
+ 2019-07-08T18:28:14.132Z [error logging] error: SyntaxError: missing ) after argument list
+ 2019-07-08T18:30:24.304Z [error logging] error: SyntaxError: missing ) after argument list
+ 2019-07-08T20:42:24.754Z [error logging] error: SyntaxError: missing ) after argument list
+ 2019-07-08T21:19:00.360Z [error logging] error: SyntaxError: missing ) after argument list
+ 2019-07-09T13:56:32.353Z [error logging] error: SyntaxError: Identifier 'str' has already been declared
+ 2019-07-10T15:46:37.147Z [error logging] error: SyntaxError: Unexpected token .
+ 2019-07-10T16:03:01.970Z [error logging] error: SyntaxError: Unexpected end of input
+ 2019-07-10T16:03:19.997Z [error logging] error: SyntaxError: Unexpected end of input
+ 2019-07-10T20:29:26.473Z [error logging] error: SyntaxError: Missing } in template expression
+ 2019-07-10T20:38:19.197Z [error logging] error: SyntaxError: Unexpected token :
+ 2019-07-10T20:42:56.473Z [error logging] error: SyntaxError: Unexpected token }
+ 2019-10-30T18:40:18.712Z [error logging] error: SyntaxError: Unexpected token )
