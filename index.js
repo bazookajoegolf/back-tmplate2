@@ -21,6 +21,10 @@ require('./startup/config')(app);
 //error exception logging
 require('./startup/logging')();
 
+//cache settings from database
+
+//require('./startup/cache')();
+
 // db connection
 require('./startup/database')();
 app.use(cors());

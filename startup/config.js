@@ -2,6 +2,8 @@
 const config = require('config');
 const helmet = require('helmet');
 
+const  {wrSettings} = require('../admin/filesettings');
+
 // need to set or export jwtPrivatkey :   ie:  export templatejwt = "abc123" use something different
 module.exports = function (app){
 
@@ -21,7 +23,7 @@ console.log('Application name: ' + config.get('name') );
 console.log('Mail server: ' + config.get('mail.host') );
 //console.log('password: ' + config.get('mail.password') );
 
-
+wrSettings();
 
 
 }

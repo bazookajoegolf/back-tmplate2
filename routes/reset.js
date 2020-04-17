@@ -9,16 +9,19 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 
+const  {rdSettings} = require('../admin/filesettings');
+var settings= rdSettings();
+
 
 router.post('/', async (req, res) => {
 
    //this api is the start of the reset password process.  it takes the email address
    //looks up the email address and if found sends an email to that address with a link 
    //that a user can put in its new password (api below)
-
+   console.log("in the reset api: " + req.body.email); 
 
    const user = await User.findOne({email : req.body.email});
-   if(!user) return res.status(404).send("User not found!");
+   if(!user) return res.status(404).send({message: "Unable to Handle your Request"});
     
     let random ;
     crypto.randomBytes(12, async (err,buf)=> {
@@ -26,19 +29,18 @@ router.post('/', async (req, res) => {
         else random = buf.toString('hex');
         //console.log(`email adddress: ${user} random string ${random}`);
         let transport = nodemailer.createTransport({
-            host : "mail.harvestenergy.ca",
+            host : settings.smtphost,    //settings.
             port : 25, 
-
             auth: null
-
         });
+
+
 
         // Search reset db for old password requests for same user and delete
 
         
         const oldResets = await Reset.deleteMany({email : req.body.email});
-        console.log(oldResets);
-
+        
         const reset = new Reset( {
             email : req.body.email , 
             resetPasswordToken: random
@@ -46,12 +48,17 @@ router.post('/', async (req, res) => {
     
      await reset.save();
 
-        const textbody = `${config.get('host')}/api/reset/${random}`;
+    const textbody = `${config.get('host')}/api/reset/${random}`;
+
+    const htmlbody = `<div><h3 style="margin-bottom: 40px;text-align: center">To reset your password,  click the following link and enter code: </h3>
+			   <p style="margin-bottom:30px;text-align: center"> ${config.get('host')}/reset-ack/${random} </p> 
+			   <p style="text-align:center">OR:    enter the following code into the Reset page.  ${random} </p>
+		     </div>`;
         let mailOptions = {
-            from: 'putinconfigyourfromaddress@someaddress.com',
-            to: req.body.email,
+            from: settings.smtpsendas,
+            to: 'brad.zingle@harvestenergy.ca ',    //req.body.email,
             subject: 'Password Reset',
-            text: textbody
+            html: htmlbody
         };
         transport.sendMail(mailOptions, function(err, info){
             if (err) console.log(err);
@@ -62,14 +69,10 @@ router.post('/', async (req, res) => {
         });
 
         
-        return res.status(200).send(`http://${config.get('host')}/api/reset/${random}`);
+       // return res.status(200).send(`http://${config.get('host')}/api/reset/${random}`);
+	return res.status(200).send({message : "You request has been submitted, you will receive an Email Shortly"});
     });
     
-    //console.log("hello" + req.user._id);
-    //if(!user) return  res.status(404).send("User not found");
-       
-    //res.send(req.params.id);
-    // req.query would get the values url ?=sortBy=2
     
 });
 
@@ -82,32 +85,40 @@ router.post('/:token', async (req, res) => {
     // the request should also contain an email address as a double check to compare both the 
     // and email address match the reset entry in the database.
     
+ 
+   console.log(req.body.email + "  " + req.params.token);
     const resetUser = await Reset.findOne({email : req.body.email, resetPasswordToken : req.params.token });
-    if(!resetUser) return res.status(404).send("Password NOT Reset");
+    console.log(resetUser);
+    if(!resetUser) {
+        
+	return res.status(404).send({message : "Password NOT Reset"});
+    }
 
-    if(resetUser.resetPasswordExpire > Date.now() )
-    {
-        console.log("you are in the reset world");
+    if(resetUser.resetPasswordExpire > Date.now() ) {
+    
+        
         const user = await User.findOne({email: req.body.email});
 
-        if(!user) return res.status(400).send("An error occurred with your request");
+        if(!user) return res.status(400).send({message : "An error occurred with your request"});
         
         const salt = await bcrypt.genSalt(10);
+		console.log("New Password  " + req.body.newpassword);
+		if(req.body.newpassword.length < settings.minpassword) {
+			return res.status(401).send({message : "Minimum password length is " + settings.minpassword });
+		}
         user.password = await bcrypt.hash(req.body.newpassword, salt);
              
         user.save();
-        console.log("the password is: " + req.body.newpassword  );
-        return res.status(200).send("Password successfully Reset. ");
-
        
+        return res.status(200).send({message : "Password successfully Reset. "});
 
     }
-    //const user = await User.findById(req.user._id).select('-password');
-    // console.log("hello" + req.user._id);
-   // if(!user) return  res.status(404).send("User not found");
 
+    else {
+	return res.status(401).send({message : "Password reset has expired"});
+    }
 
-    return res.status(400).send("Password reset has expired");
+    
     
     //res.send(req.params.id);
     // req.query would get the values url ?=sortBy=2

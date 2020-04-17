@@ -4,7 +4,8 @@
   "description": "template",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"start": "nodemon  --ignore  'admin/settings.json'"
   },
   "author": "brad zingle",
   "license": "ISC",
@@ -15,11 +16,12 @@
     "cors": "^2.8.5",
     "express": "^4.16.3",
     "express-async-errors": "^3.1.1",
-    "helmet": "^3.13.0",
+    "helmet": "^3.21.2",
     "joi": "^13.6.0",
     "joi-objectid": "^2.0.0",
+    "jsonfile": "^5.0.0",
     "jsonwebtoken": "^8.5.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "mongoose": "^5.2.14",
     "morgan": "^1.9.1",
     "nodemailer": "^4.7.0",

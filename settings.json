@@ -1,0 +1,1 @@
+{"minpassword":10,"maxpassword":30,"minname":3,"maxname":20,"maxnotes":2000,"newusertoken":1,"usertoken":4,"admintoken":4,"smtphost":"localhost","smtpsendas":"MyAppSender@myapp.com","smtpsendto":"somebody@somewhere.com","_id":"5e34f87a4c4bcb1011699dac","__v":0}

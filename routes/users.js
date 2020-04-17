@@ -11,9 +11,10 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 
+const  {rdSettings} = require('../admin/filesettings');
+var settings= rdSettings();
 
-
-
+console.log("this done everytime a user request comes in");
 
 // returns current profile if authorized.
 
@@ -23,7 +24,7 @@ router.get('/me', auth, async (req, res) => {
     // can return more items here
     const user = await User.findById(req.user._id).select('-password');
    // console.log("hello  " + user.name);
-    if(!user) return  res.status(404).send("User not found");
+    if(!user) return  res.status(404).send({message : "User not found"});
     res.send(user);
     
     //res.send(req.params.id);
@@ -35,25 +36,27 @@ router.get('/me', auth, async (req, res) => {
 
 router.post('/',  async (req, res) => {
 
-
+   // console.log("initial request");
     const result = validate(req.body);
     
     if (result.error) {
         // 400 bad request
-        return res.status(400).send(result.error.details[0].message );
+	console.log(result.error.details);
+        return res.status(400).send({message : result.error.details[0].message} );
         
     }
 
     let newuser = await User.findOne({email: req.body.email});
+
     
-    if(newuser) return res.status(409).send('User is already registered');
+    if(newuser) return res.status(409).send({message : 'User is already registered'});
 
     // delete any previous requests from the email
     const oldRequest = await NewUser.findOneAndDelete({email: req.body.email});
 
    
 
-    newuser = new NewUser( _.pick(req.body,['name', 'email','password','isadmin']));
+    newuser = new NewUser( _.pick(req.body,['name', 'email','password','isadmin','status','gender','roles','notes']));
 
     newuser.name = convertName(newuser.name);
     newuser.email = convertEMail(newuser.email);
@@ -81,7 +84,7 @@ router.post('/',  async (req, res) => {
 		     </div>`;
 	
     let mailOptions = {
-        from: 'putinconfigyourfromaddress@someaddress.com',
+        from: settings.smtpsendas,
         to:  'brad.zingle@harvestenergy.ca',         //req.body.email,
         subject: 'New User Confirmation',
         html: htmlbody
@@ -104,7 +107,7 @@ router.post('/',  async (req, res) => {
 //verified account api
 
 router.post('/:id', async (req,res)=>{
-    console.log(mongoose.Types.ObjectId.isValid(req.params.id));
+    // console.log(mongoose.Types.ObjectId.isValid(req.params.id));
     if(!mongoose.Types.ObjectId.isValid(req.params.id)) return res.status(404).send("Invalid Confirmation Number");
     const newuser = await NewUser.findById( req.params.id);
     if(!newuser)  return res.status(404).send("Profile Not Found or Expired");
@@ -113,7 +116,11 @@ router.post('/:id', async (req,res)=>{
         "name" : newuser.name,
         "password" : newuser.password,
         "email" : newuser.email,
-        "isadmin" : newuser.isadmin
+        "isadmin" : newuser.isadmin,
+        "status" : "Enabled",
+        "gender" : newuser.gender,
+        "roles" : newuser.roles,
+        "notes" : newuser.notes
     });
 
     const saveresult = posteduser.save();
@@ -142,13 +149,16 @@ router.put('/:id', auth,  async (req ,res) =>{
  
     if(validPassword) {
 
-	const duplicateEmail = await User.findOne({email: req.body.email});
+	 const duplicateEmail = await User.findOne({email: req.body.email});
+
+       // console.log("this is the test function " + duplicateEmail);
  
 	//checking to see if update is changing the email address. If so, checks to see that it isn't being changed to an existing email
 	if(duplicateEmail && user.email !==req.body.email) return res.status(400).send({message: 'Email address Already exists!'});
         try {
           user.name = convertName(req.body.name);
           user.email = convertEMail(req.body.email);
+          user.gender = req.body.gender;
        
         }
         catch (err) {
@@ -202,6 +212,7 @@ function convertEMail(str) {
      str = str.toLowerCase();
      return str;
 }
+
 
 
 

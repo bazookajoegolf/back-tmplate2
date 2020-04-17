@@ -2,15 +2,22 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const fs = require('fs');
 
+const  {rdSettings} = require('../admin/filesettings');
+
 var i = "bazookajoegolf Inc";    // Issuer
 var s = "bazookajoegolf@outlook.com";  //Subject
-var a = "http://handicap.bazookajoegolf.com"  //audience
+var a = "http://handicap.bazookajoegolf.com"  ;//audience
+
+var settings= rdSettings();
+var e = settings.usertoken + 'h';
+
+
 
 var verifyOptions = {
    issuer : i,
    subject : s,
    audience : a,
-   expiresIn: '4h',  //60*60 signifies 1 hr
+   expiresIn: e,  
    algorithm: ["RS256"]
 };
 
@@ -32,7 +39,7 @@ module.exports = function (req, res, next) {
         const decoded = jwt.verify(token, publicKey, verifyOptions);
         req.user = decoded;
 	var j =  new Date().getTime();
-	console.log("authorized user " + req.user);
+	
 	if (j < req.user.exp) { res.status(400).send({"message" :'Your Session as expired.'}); }
        // console.log("ID:  " + req.user._id, "email: "+ req.user.email + "  admin: " + req.user.isadmin + "exp: " +req.user.exp);
 	//console.log("exp: " +req.user.exp + " current time value: " + j);
