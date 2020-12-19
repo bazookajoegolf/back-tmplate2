@@ -101,7 +101,7 @@ function adminValidateUpdate(user) {
         name: Joi.string().min(settings.minname).max(settings.maxname).required(),
         email: Joi.string().min(5).max(50).required().email(),
         isadmin : Joi.any().allow(["false" , "true"]),
-        password: Joi.string().min(settings.minpassword).max(settings.maxpassword).required(),
+       // password: Joi.string().min(settings.minpassword).max(settings.maxpassword).required(),
         status : Joi.string().required(),
 	gender : Joi.string().required(),
         roles  : Joi.array(),

@@ -34,6 +34,7 @@ require('./startup/routes')(app);
 //development debug
 require('./startup/debug-dev')(app);
 
+
 app.use(express.static('first'));
 
 app.use(express.static(__dirname + '/Dist'));

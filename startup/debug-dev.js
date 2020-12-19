@@ -15,6 +15,7 @@ module.exports = function (app) {
      startupdebug('Morgan started');  
  }
 
+startupdebug("debugging enabled");
 
 }
 

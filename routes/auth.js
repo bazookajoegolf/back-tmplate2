@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
+const debug = require('debug')('app:startup');
+
 const  {rdSettings} = require('../admin/filesettings');
 var settings= rdSettings();
 
@@ -15,7 +17,7 @@ var settings= rdSettings();
 router.get('/settings', async (req, res) => {
 
    //returns the admin settings to user
-   console.log(settings);
+   debug(settings);
     res.send(settings);
    
     
@@ -53,7 +55,7 @@ router.post('/',  async (req, res) => {
 function validate(req) {
     const schema = {
         email: Joi.string().min(5).max(50).required().email(),
-        password: Joi.string().min(settings.minpassword).max(settings.maxpassword).required()
+        password: Joi.string().required() // password: Joi.string().min(settings.minpassword).max(settings.maxpassword).required()
     } 
 
     return Joi.validate(req, schema , {presence : "required"});

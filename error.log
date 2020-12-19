@@ -253,3 +253,8 @@ Require stack:
  2020-02-11T22:08:21.629Z [error logging] error: TypeError: Cannot read property 'details' of null
  2020-02-12T21:21:17.167Z [error logging] error: SyntaxError: Unexpected token }
  2020-04-11T03:09:40.250Z [error logging] error: SyntaxError: Unexpected token ,
+ 2020-10-13T21:26:08.568Z [error logging] error: ReferenceError: startupdebug is not defined
+ 2020-10-13T21:26:56.580Z [error logging] error: ReferenceError: startupdebug is not defined
+ 2020-10-13T21:33:57.480Z [error logging] error: ReferenceError: startupdebug is not defined
+ 2020-10-13T21:34:06.465Z [error logging] error: TypeError: app.startupdebug is not a function
+ 2020-10-13T21:37:13.424Z [error logging] error: TypeError: app.startupdebug is not a function
