@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
         else random = buf.toString('hex');
         //console.log(`email adddress: ${user} random string ${random}`);
         let transport = nodemailer.createTransport({
-            host : settings.smtphost,    //settings.
+            host : settings.smtphost,  //  settings.
             port : 25, 
             auth: null
         });
@@ -41,9 +41,15 @@ router.post('/', async (req, res) => {
         
         const oldResets = await Reset.deleteMany({email : req.body.email});
         
+        var x = new Date();
+    
+        x.setHours(x.getHours() + settings.newusertoken);
+      
+        
         const reset = new Reset( {
             email : req.body.email , 
-            resetPasswordToken: random
+            resetPasswordToken: random,
+            resetPasswordExpire: x
         });
     
      await reset.save();
@@ -93,16 +99,18 @@ router.post('/:token', async (req, res) => {
         
 	return res.status(404).send({message : "Password NOT Reset"});
     }
-
-    if(resetUser.resetPasswordExpire > Date.now() ) {
+     const currentTime = new Date;
+	 
+	 console.log("Current time: " ,currentTime );
+    if(resetUser.resetPasswordExpire > currentTime) {
     
-        
+        console.log("getting here");
         const user = await User.findOne({email: req.body.email});
 
         if(!user) return res.status(400).send({message : "An error occurred with your request"});
         
         const salt = await bcrypt.genSalt(10);
-		console.log("New Password  " + req.body.newpassword);
+		
 		if(req.body.newpassword.length < settings.minpassword) {
 			return res.status(401).send({message : "Minimum password length is " + settings.minpassword });
 		}
@@ -115,7 +123,8 @@ router.post('/:token', async (req, res) => {
     }
 
     else {
-	return res.status(401).send({message : "Password reset has expired"});
+		console.log("expire: " + resetUser.resetPasswordExpire + "  now:  "  + currentTime);
+	    return res.status(401).send({message : "Password reset has expired"});
     }
 
     

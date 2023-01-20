@@ -82,7 +82,7 @@ router.get('/:email', auth, admin, async (req, res)=> {
 // deletes a user
 
 router.delete('/:id', auth, admin, async (req ,res) =>{
-
+    //console.log("In Admin delete route");
     await User.findById( req.params.id, (err, id)=>{
 	if(err) {
                  console.log(err + "error");
@@ -102,7 +102,8 @@ router.delete('/:id', auth, admin, async (req ,res) =>{
 
 router.put('/:id', auth, admin, async (req ,res) =>{
 
-    const result = adminValidateUpdate(_.pick(req.body,['name', 'email','password','isadmin','status','notes','gender', 'roles']));
+   // const result = adminValidateUpdate(_.pick(req.body,['name', 'email','password','isadmin','status','notes','gender', 'roles']));
+    const result = adminValidateUpdate(_.pick(req.body,['name', 'email','isadmin','status','notes','gender', 'roles']));
     
     if (result.error) {
        // 400 bad request
@@ -175,11 +176,13 @@ router.put('/pw/:id', auth, admin, async (req ,res) =>{
 
 router.post('/', auth, admin, async (req ,res) =>{
     
-    const result = adminValidateUpdate(req.body);
+    const result = validate(req.body);
+	//console.log(result);
     
-    if (result.error) {
-        // 400 bad request
-        console.log(result.error);
+   if (result.error) {
+
+	   // 400 bad request
+        console.log(result.error + "  :posting for new user");
         return res.status(400).send({ message : result.error.details[0].message });
         
     }
@@ -197,7 +200,7 @@ router.post('/', auth, admin, async (req ,res) =>{
 
      const saveresult = await user.save(function (err, user){
 	if(err) {
-            console.log(err);
+            console.log("Error saving a new user" );
 	    return res.status(404).send({message : result.error.details[0].message});
         } else {
            return res.status(200).send({message : "User Successfully Updated"});

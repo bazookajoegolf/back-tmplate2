@@ -24,14 +24,18 @@ router.get('/settings', async (req, res) => {
 });
 router.post('/',  async (req, res) => {
     const {error} = validate(req.body);
+	console.log("trying to authorize");
    
     if (error) {
         // 400 bad request
+		console.log("error occurred with validating user" + error);
         return res.status(400).send({message:error.details[0].message});
         
     }
 
     let user = await User.findOne({email: req.body.email});
+	let zz = await User.find({email : req.body.email});
+	console.log("found user  " + zz + " emal address: " + req.body.email + "  requested user " + user );
    
     if(!user) return res.status(400).send({message:'Invalid user or password'});
 

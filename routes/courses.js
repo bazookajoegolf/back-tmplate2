@@ -4,83 +4,96 @@ router.use(express.json());
 const Joi = require('joi');
 const mongoose = require('mongoose');
 
-const courses = [
- 
-    {id : 1, name: 'course1'},
-    {id : 2, name: 'course2'},
-    {id : 3, name: 'course3'}
-];
+const auth = require('../middleware/auth');
+const config = require('config');
+const {Course} = require('../models/course');
 
 
-router.get('/', (req, res) =>{
-    res.send(courses);
+
+
+router.get('/', async  (req, res) =>{
+	console.log("courses get requests");
+
+	const courses = await Course.find().sort({"name" :  1});
+     res.status(200).send(courses);
+
 });
 
-router.get('/:id', (req, res) =>{
+router.get('/:id', async  (req, res) =>{
+	console.log("courses get specific Course");
+	 console.log(req.params.id);
 
-    const course = courses.find(c=> c.id === parseInt(req.params.id));
-    if(!course) return  res.status(404).send("Course not found");
-    res.send(course);
-    
-    //res.send(req.params.id);
-    // req.query would get the values url ?=sortBy=2
+	const course = await Course.findById( req.params.id);
+     res.status(200).send(course);
+
 });
 
 
-router.post ('/', (req,res)=> {
-    console.log(req.body);
-    const result = validateCourse(req.body);
+router.post('/',  async  (req, res) =>{
+   
+   const c = await Course.findOne({url: req.body.url});
+   console.log("finding course by url : " + c);
+     if(c)  {return res.status(400).send({message : "Website already exists"});  }
 
-    if (result.error) {
-        // 400 bad request
-        return res.status(400).send(result.error.details[0].message);
-        
+     const course = new Course(req.body);
+	console.log("after new course");
+	 console.log(course);
+	 await course.save();
+     
+	 return res.status(200).send({message : "Posted"});
+});
+
+router.put('/:id', async  (req, res) =>{
+	console.log("update Course");
+	
+
+	let course = await Course.findById( req.params.id);
+	 if(!course) return res.status(404).send({message: "Course not found"});
+	 
+	 course.name = req.body.name;
+     course.address = req.body.address;
+     course.url = req.body.url;
+	 course.city = req.body.city;
+	 course.description = req.body.description;
+	 course.active = req.body.active;
+
+	const courseUpdate = await course.save();
+	
+	console.log("Course update: " + courseUpdate);
+	
+   if(courseUpdate) {   
+        return res.status(200).send({message : "Course Successfully Updated"});
+    } else {
+        return res.status(404).send({message : "Unable to Update Course, see Support"});
     }
 
-    const course = {
-        id: courses.length +1,
-        name: req.body.name
-    };
-    courses.push(course);
-    res.send(course);
 });
 
 
-router.put('/:id', (req, res) =>{
-    const course = courses.find(c=> c.id === parseInt(req.params.id));
-    if(!course) return res.status(404).send("Course not found");
 
-    const result = validateCourse(req.body);
-    //const {error} = validateCourse(req.body);
-    // if(error) {...}
 
-    if (result.error) {
-        // 400 bad request
-       return  res.status(400).send(result.error.details[0].message);
-        
-    }
+router.delete('/:id', async  (req, res) =>{
+	console.log("delete Course");
+	 console.log(req.params.id);
 
-    course.name = req.body.name;
-    res.send(course);
-    
-});
+	//const deleteResult = await Course.findOneAndDelete({ _id: req.params.id});
+     //res.status(200).send("deleted");
+	 
+	 	 await Course.findOneAndDelete({ _id: req.params.id} , (err , result) => {
+			 
+		 if(err) {
+			 console.log("Error found: ");
+			 return res.status(404).send({message : "Unable to delete course"});
+		 } 
+		 else {
+			 console.log("successfully deleted the course" );
+			  return res.status(200).send({message : "Course Successfully Deleted"});
+		 }
+	 });
 
-router.delete('/:id', (req, res) =>{
-    const course = courses.find(c=> c.id === parseInt(req.params.id));
-    if(!course) return res.status(404).send("Course not found");
-
-    const index = courses.indexOf(course);
-    courses.splice(index, 1);
-    res.send(course);
 
 });
 
-function validateCourse(course) {
-    const schema = { name: Joi.string().min(3).required()};
-
-    return  Joi.validate(course, schema);
-
-}
 
 
 module.exports = router;

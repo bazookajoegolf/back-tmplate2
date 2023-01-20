@@ -258,3 +258,60 @@ Require stack:
  2020-10-13T21:33:57.480Z [error logging] error: ReferenceError: startupdebug is not defined
  2020-10-13T21:34:06.465Z [error logging] error: TypeError: app.startupdebug is not a function
  2020-10-13T21:37:13.424Z [error logging] error: TypeError: app.startupdebug is not a function
+ 2021-09-13T16:25:04.393Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2021-09-13T16:27:13.241Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2021-09-13T16:27:23.891Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2021-09-13T16:29:32.678Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2021-09-13T16:32:57.061Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2021-09-13T16:33:40.162Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2021-09-13T16:35:34.583Z [error logging] error: SyntaxError: Invalid regular expression flags
+ 2021-09-13T16:51:39.783Z [error logging] error: SyntaxError: Invalid regular expression: missing /
+ 2021-09-13T19:13:28.748Z [error logging] error: SyntaxError: Unexpected end of input
+ 2021-09-13T19:13:39.875Z [error logging] error: SyntaxError: Unexpected end of input
+ 2021-09-13T19:14:57.451Z [error logging] error: SyntaxError: Unexpected end of input
+ 2021-09-15T20:14:51.047Z [error logging] error: ReferenceError: boolean is not defined
+ 2021-09-21T00:46:49.911Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2021-10-08T21:15:04.562Z [error logging] error: SyntaxError: Unexpected token ')'
+ 2021-10-08T21:15:42.483Z [error logging] error: SyntaxError: Unexpected token ')'
+ 2021-10-08T21:16:15.588Z [error logging] error: SyntaxError: Unexpected token ')'
+ 2021-10-08T21:28:11.329Z [error logging] error: TypeError: Cannot read property 'status' of null
+ 2021-10-08T21:31:14.734Z [error logging] error: TypeError: Cannot read property 'status' of null
+ 2021-10-08T21:34:29.588Z [error logging] error: TypeError: Cannot read property 'status' of null
+ 2021-10-08T21:41:12.843Z [error logging] error: TypeError: Course.save is not a function
+ 2021-10-23T22:23:32.899Z [error logging] error: Error: listen EADDRINUSE: address already in use :::3000
+ 2021-10-23T22:25:12.954Z [error logging] error: Error: listen EADDRINUSE: address already in use :::3000
+ 2022-04-28T20:14:01.222Z [error logging] error: SyntaxError: Unexpected end of input
+ 2022-04-28T20:17:06.727Z [error logging] error: SyntaxError: Unexpected token ')'
+ 2022-04-28T20:17:17.932Z [error logging] error: SyntaxError: Unexpected token ')'
+ 2022-04-28T20:18:28.348Z [error logging] error: SyntaxError: missing ) after argument list
+ 2022-04-28T20:42:39.559Z [error logging] error: TypeError: Cannot read property 'details' of null
+ 2022-11-22T21:24:16.037Z [error logging] error: MongoNetworkError: failed to connect to server [localhost:27017] on first connect [Error: connect ECONNREFUSED 127.0.0.1:27017
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1148:16) {
+  name: 'MongoNetworkError',
+  errorLabels: [Array],
+  [Symbol(mongoErrorContextSymbol)]: {}
+}]
+ 2022-11-25T21:57:28.030Z [error logging] error: MongoParseError: Invalid connection string
+ 2022-11-25T22:08:30.942Z [error logging] error: MongoNetworkError: failed to connect to server [https:27017] on first connect [Error: getaddrinfo ENOTFOUND https
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:69:26) {
+  name: 'MongoNetworkError',
+  errorLabels: [Array],
+  [Symbol(mongoErrorContextSymbol)]: {}
+}]
+ 2022-11-25T22:08:44.099Z [error logging] error: MongoNetworkError: failed to connect to server [https:27017] on first connect [Error: getaddrinfo ENOTFOUND https
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:69:26) {
+  name: 'MongoNetworkError',
+  errorLabels: [Array],
+  [Symbol(mongoErrorContextSymbol)]: {}
+}]
+ 2022-11-25T22:10:44.390Z [error logging] error: MongoParseError: URI does not have hostname, domain name and tld
+ 2022-11-25T22:10:44.933Z [error logging] error: MongoParseError: URI does not have hostname, domain name and tld
+ 2022-11-25T22:10:49.696Z [error logging] error: MongoParseError: URI does not have hostname, domain name and tld
+ 2022-11-25T22:14:12.602Z [error logging] error: MongoParseError: URI does not have hostname, domain name and tld
+ 2022-11-25T22:21:14.777Z [error logging] error: MongoParseError: URI does not have hostname, domain name and tld
+ 2022-11-25T22:35:28.672Z [error logging] error: MongoParseError: URI does not have hostname, domain name and tld
+ 2022-11-25T22:38:22.086Z [error logging] error: MongoError: database name must be a string
+ 2022-11-25T22:38:28.659Z [error logging] error: MongoError: database name must be a string
+ 2022-12-12T15:58:05.275Z [error logging] error: DocumentNotFoundError: No document found for query "{ _id: 63939e2cada8a70f96d6a7b8 }" on model "user"
+ 2023-01-06T22:33:45.522Z [error logging] error: ReferenceError: mail is not defined
+ 2023-01-11T17:56:50.473Z [error logging] error: ValidationError: resetPasswordExpire: Cast to date failed for value "Invalid Date" (type Date) at path "resetPasswordExpire"
