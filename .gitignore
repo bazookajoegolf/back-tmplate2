@@ -1,3 +1,5 @@
 /node_modules
 /config/public.key
 /config/private.key
+/config/development.json
+/config/production.json
