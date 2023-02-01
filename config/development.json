@@ -1,6 +1,0 @@
-{
-    "name" : "My app in developments",
-    "mail" : {"host" :"dev-mail-server"},
-    "db"   : "",
-    "host"  : "http://host.template.baz:4200"
-}
