@@ -1,5 +1,0 @@
-{
-    "name" : "My app in production",
-    "mail" : {"host" :"prod-mail-server"},
-    "host"  : "host.template.baz:4200"
-}
