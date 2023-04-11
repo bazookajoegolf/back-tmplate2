@@ -47,9 +47,13 @@ router.post('/',  async (req, res) => {
     }
 
     let newuser = await User.findOne({email: req.body.email});
+    
 
     
-    if(newuser) return res.status(409).send({message : 'User is already registered'});
+    if(newuser) {
+    	// console.log("cannot register new user, user already exists! new user found" + newuser);
+       return res.status(409).send({message : "email account already exists"});
+    }   
 
     // delete any previous requests from the email
     const oldRequest = await NewUser.findOneAndDelete({email: req.body.email});

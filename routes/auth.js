@@ -45,6 +45,7 @@ router.post('/',  async (req, res) => {
     if (!validPassword ) return res.status(400).send({message:'Invalid user or password'});
 
    const token = user.generateAuthToken();
+   //console.log("the token  " + token);
     user.lastLogin = Date.now();
 	const saveLastLogin = await user.save();
 	// console.log(saveLastLogin);

@@ -315,3 +315,50 @@ Require stack:
  2022-12-12T15:58:05.275Z [error logging] error: DocumentNotFoundError: No document found for query "{ _id: 63939e2cada8a70f96d6a7b8 }" on model "user"
  2023-01-06T22:33:45.522Z [error logging] error: ReferenceError: mail is not defined
  2023-01-11T17:56:50.473Z [error logging] error: ValidationError: resetPasswordExpire: Cast to date failed for value "Invalid Date" (type Date) at path "resetPasswordExpire"
+ 2023-02-17T18:17:02.313Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2023-02-17T18:20:24.588Z [error logging] error: SyntaxError: Invalid or unexpected token
+ 2023-02-23T21:19:11.084Z [error logging] error: SyntaxError: Unexpected token ')'
+ 2023-02-23T21:27:16.696Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-02-23T21:37:32.733Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-02-23T21:38:08.110Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-02-23T21:40:00.280Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-02-23T21:43:06.885Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-02-23T21:43:58.094Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-02-23T21:44:14.971Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-02-24T17:51:25.389Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-02-24T18:00:18.791Z [error logging] error: SyntaxError: Unexpected token 'return'
+ 2023-02-27T19:47:41.373Z [error logging] error: SyntaxError: Unexpected token ':'
+ 2023-02-27T19:48:13.534Z [error logging] error: SyntaxError: Unexpected token ':'
+ 2023-03-19T04:39:03.465Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-03-19T05:07:15.901Z [error logging] error: SyntaxError: Missing initializer in const declaration
+ 2023-03-20T23:14:27.750Z [error logging] error: SyntaxError: Unexpected token '{'
+ 2023-03-20T23:15:52.742Z [error logging] error: SyntaxError: Unexpected token '{'
+ 2023-03-20T23:17:23.748Z [error logging] error: SyntaxError: Unexpected token '{'
+ 2023-03-20T23:26:27.353Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-03-20T23:59:52.422Z [error logging] error: SyntaxError: Unexpected token '.'
+ 2023-03-21T00:01:03.865Z [error logging] error: SyntaxError: Unexpected token '.'
+ 2023-03-21T00:07:53.214Z [error logging] error: SyntaxError: Unexpected token '{'
+ 2023-03-21T03:06:18.448Z [error logging] error: SyntaxError: Unexpected token '.'
+ 2023-03-21T03:09:38.536Z [error logging] error: SyntaxError: Unexpected token '.'
+ 2023-03-21T03:10:33.614Z [error logging] error: SyntaxError: Unexpected token '.'
+ 2023-03-21T03:13:43.133Z [error logging] error: SyntaxError: Unexpected token '.'
+ 2023-03-21T03:15:52.865Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-03-21T03:17:09.319Z [error logging] error: SyntaxError: Unexpected token ')'
+ 2023-03-21T03:20:22.187Z [error logging] error: SyntaxError: Unexpected token ')'
+ 2023-03-25T23:47:41.205Z [error logging] error: SyntaxError: Unexpected identifier
+ 2023-03-25T23:51:54.132Z [error logging] error: SyntaxError: Unexpected token '=>'
+ 2023-03-25T23:53:42.273Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-03-25T23:58:53.344Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-04-04T03:01:27.546Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-04-04T03:12:21.778Z [error logging] error: Error: listen EADDRINUSE: address already in use :::3000
+ 2023-04-04T04:08:31.449Z [error logging] error: MongoParseError: options usecreateindexes, usefindandmodify are not supported
+ 2023-04-04T04:08:41.451Z [error logging] error: MongooseError: Operation `adminsettings.findOne()` buffering timed out after 10000ms
+ 2023-04-04T04:20:54.457Z [error logging] error: SyntaxError: Unexpected end of input
+ 2023-04-04T04:21:03.361Z [error logging] error: SyntaxError: Unexpected end of input
+ 2023-04-04T04:21:59.539Z [error logging] error: SyntaxError: Unexpected end of input
+ 2023-04-04T04:23:05.152Z [error logging] error: SyntaxError: Unexpected end of input
+ 2023-04-04T04:24:17.740Z [error logging] error: MongoParseError: options usecreateindexes, usefindandmodify are not supported
+ 2023-04-04T04:24:27.740Z [error logging] error: MongooseError: Operation `adminsettings.findOne()` buffering timed out after 10000ms
+ 2023-04-04T04:52:47.735Z [error logging] error: SyntaxError: Unexpected token '{'
+ 2023-04-05T03:54:59.657Z [error logging] error: SyntaxError: Unexpected token '{'
+ 2023-04-05T03:57:57.329Z [error logging] error: SyntaxError: Unexpected token '{'

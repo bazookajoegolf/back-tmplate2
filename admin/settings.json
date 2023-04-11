@@ -1,1 +1,1 @@
-{"minpassword":5,"maxpassword":18,"minname":3,"maxname":20,"maxnotes":2000,"newusertoken":1,"usertoken":4,"admintoken":4,"smtphost":"mail.harvestenergy.ca","smtpsendas":"MyAppSender@myapp.com","smtpsentto":"somebody@somewhere.com","_id":"638531a3a3b7ab17a2e9d6c1","__v":0}
+{"_id":"638531a3a3b7ab17a2e9d6c1","minpassword":5,"maxpassword":19,"minname":3,"maxname":30,"maxnotes":2000,"newusertoken":1,"usertoken":12,"admintoken":12,"smtphost":"mail.harvestenergy.ca","smtpsendas":"MyAppSender@myapp.com","smtpsentto":"somebody@somewhere.com","__v":0}

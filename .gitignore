@@ -3,3 +3,4 @@
 /config/private.key
 /config/development.json
 /config/production.json
+/startup/database.js
