@@ -4,3 +4,5 @@
 /config/development.json
 /config/production.json
 /startup/database.js
+/exception.log
+/error.log

@@ -82,26 +82,27 @@ router.get('/:email', auth, admin, async (req, res)=> {
 // deletes a user
 
 router.delete('/:id', auth, admin, async (req ,res) =>{
-    //console.log("In Admin delete route");
-    await User.findById( req.params.id, (err, id)=>{
-	if(err) {
-                 console.log(err + "error");
-		 return res.status(401).send({message :"An Error occurred"});}
-	if(id) {
-                
-		id.delete();
-	        return res.status(200).send({message:"User Deleted!"});
-      	    } 
-	else { return res.status(401).send({message :"User Not Found..."}); }
-    });
-});
+ 
+   try { 
+   const deletedUser = await User.findByIdAndRemove( req.params.id, (err, id)=>{ 
 
-
+   });  
+   } 
+   catch {
+      console.log("error deleting user by administrator " + err);
+      return res.status(401).send({message :"An Error occurred"});
+   }  
+   finally {
+     console.log("user deleted");
+     return res.status(200).send({message:"User Deleted !"});
+   }
+ });   
+    
 
 //updates a user
 
 router.put('/:id', auth, admin, async (req ,res) =>{
-
+    console.log("in user admin put route");
    // const result = adminValidateUpdate(_.pick(req.body,['name', 'email','password','isadmin','status','notes','gender', 'roles']));
     const result = adminValidateUpdate(_.pick(req.body,['name', 'email','isadmin','status','notes','gender', 'roles']));
     
