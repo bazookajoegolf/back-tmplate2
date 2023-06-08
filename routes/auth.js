@@ -35,7 +35,7 @@ router.post('/',  async (req, res) => {
 
     let user = await User.findOne({email: req.body.email});
 	let zz = await User.find({email : req.body.email});
-	console.log("found user  " + zz + " emal address: " + req.body.email + "  requested user " + user );
+	//console.log("found user  " + zz + " emal address: " + req.body.email + "  requested user " + user );
    
     if(!user) return res.status(400).send({message:'Invalid user or password'});
 
@@ -48,8 +48,8 @@ router.post('/',  async (req, res) => {
    //console.log("the token  " + token);
     user.lastLogin = Date.now();
 	const saveLastLogin = await user.save();
-	// console.log(saveLastLogin);
-    res.status(200).send({"token":token});
+	console.log(saveLastLogin);
+    res.status(200).send({"token":token, "gender": user.gender, "userid": user._id});
    
     //res.send(_.pick(user, ['_id','name','email']));
 });

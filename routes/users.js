@@ -160,7 +160,9 @@ router.put('/:id', auth,  async (req ,res) =>{
 	//checking to see if update is changing the email address. If so, checks to see that it isn't being changed to an existing email
 	if(duplicateEmail && user.email !==req.body.email) return res.status(400).send({message: 'Email address Already exists!'});
         try {
-          user.name = convertName(req.body.name);
+        //had to remove convertName.... need to fix for Multi cap names  ie:  McDavid
+        //  user.name = convertName(req.body.name);
+          user.name = req.body.name;
           user.email = convertEMail(req.body.email);
           user.gender = req.body.gender;
        

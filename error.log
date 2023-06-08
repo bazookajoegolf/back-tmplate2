@@ -378,3 +378,29 @@ Require stack:
  2023-04-14T21:43:01.793Z [error logging] error: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
  2023-04-14T21:45:34.799Z [error logging] error: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
  2023-04-14T21:47:28.207Z [error logging] error: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+ 2023-04-28T20:21:23.847Z [error logging] error: Error: listen EADDRINUSE: address already in use :::3000
+ 2023-04-28T20:21:32.102Z [error logging] error: Error: listen EADDRINUSE: address already in use :::3000
+ 2023-05-15T21:26:32.747Z [error logging] error: SyntaxError: Unexpected token '.'
+ 2023-05-15T21:27:40.792Z [error logging] error: SyntaxError: Unexpected token '.'
+ 2023-05-15T21:28:35.823Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-05-15T21:28:55.402Z [error logging] error: SyntaxError: Unexpected token '}'
+ 2023-05-15T21:30:55.545Z [error logging] error: SyntaxError: Unexpected token '.'
+ 2023-05-15T21:32:19.249Z [error logging] error: SyntaxError: Unexpected token '.'
+ 2023-05-15T21:34:12.806Z [error logging] error: SyntaxError: Unexpected token '.'
+ 2023-05-15T21:34:26.945Z [error logging] error: SyntaxError: Unexpected token '.'
+ 2023-05-17T02:14:41.164Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-05-17T02:15:39.515Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-05-17T02:15:59.864Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-05-17T02:36:04.827Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-05-17T03:55:50.791Z [error logging] error: SyntaxError: Unexpected token '{'
+ 2023-05-17T21:53:57.205Z [error logging] error: SyntaxError: Unexpected token 'break'
+ 2023-05-18T21:09:26.569Z [error logging] error: SyntaxError: Unexpected identifier
+ 2023-05-19T01:59:24.996Z [error logging] error: SyntaxError: Identifier 'z' has already been declared
+ 2023-05-19T02:12:56.953Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-05-19T02:53:56.858Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-05-24T21:09:52.122Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-06-06T20:14:23.954Z [error logging] error: SyntaxError: Unexpected token 'else'
+ 2023-06-06T20:24:19.480Z [error logging] error: SyntaxError: Unexpected token ')'
+ 2023-06-06T20:28:42.200Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-06-06T20:43:19.911Z [error logging] error: SyntaxError: missing ) after argument list
+ 2023-06-08T14:20:01.795Z [error logging] error: SyntaxError: Unexpected identifier
