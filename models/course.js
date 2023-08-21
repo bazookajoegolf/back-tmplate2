@@ -9,7 +9,7 @@ const fs = require('fs');
 
 
 const teeSchema = new mongoose.Schema({
-        courseid   : {type: String, required : false},
+    courseid   : {type: String, required : false},
 	coursename : {type: String, required : true},
 	teebox     : {type: String, required : true},
 	gender     : {type: String, required : true},

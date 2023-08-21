@@ -9,19 +9,28 @@ const fs = require('fs');
 
 // add requred true to runninghandicap and dayindex exceptional( can be 0,1 or 2)
 
+
+const srSchema = new mongoose.Schema ({
+    h : {type: Number},
+    r : {type:String }
+});
+
 const scorehandicapSchema = new mongoose.Schema({
    handicap : {type: Number, required : true},
    handicapIndex : {type: Number},
    lhiIndex: {type: Number},
    exception : {type:Number},
    date : {type: Date, required : true},
-   dayIndex : {type: Number}
+   dayIndex : {type: Number},
+   rn : {type: Number},
+   lowScores : [srSchema]
 });
 
 const scoredetailSchema = new mongoose.Schema({
 
     courseid: {type: String, required : true},
     teeid : {type: String, required : true},
+    name : {type: String, required : false},
     coursename : {type: String, required : true},
     scoredetail : {type:String},  // add required true once testing done
     teename : {type: String, required : true},
@@ -31,6 +40,7 @@ const scoredetailSchema = new mongoose.Schema({
     rating : {type: String, required : true},
     comment :{type: String},
     date : {type: Date, required : true},
+    rn : {type: String},
     year : {type: Number, required : true},
     s1 : {type: Number, required : true},
     s2 : {type: Number, required : true},
@@ -159,6 +169,7 @@ const scoreSchema = new mongoose.Schema({
     userid : { type:String, required : true},
     handicap : {type:String },
     lowhandicap : {type: String},
+    username: {type: String},
     homecourse: {type:String },
     scores : [scoredetailSchema],
     handicapArray :[scorehandicapSchema]

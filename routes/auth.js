@@ -49,7 +49,7 @@ router.post('/',  async (req, res) => {
     user.lastLogin = Date.now();
 	const saveLastLogin = await user.save();
 	console.log(saveLastLogin);
-    res.status(200).send({"token":token, "gender": user.gender, "userid": user._id});
+    res.status(200).send({"token":token, "gender": user.gender, "userid": user._id, "email" : user.email});
    
     //res.send(_.pick(user, ['_id','name','email']));
 });
