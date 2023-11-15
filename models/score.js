@@ -22,14 +22,14 @@ const scorehandicapSchema = new mongoose.Schema({
    exception : {type:Number},
    date : {type: Date, required : true},
    dayIndex : {type: Number},
-   rn : {type: Number},
-   lowScores : [srSchema]
+   rn : {type: Number}
 });
 
 const scoredetailSchema = new mongoose.Schema({
 
     courseid: {type: String, required : true},
     teeid : {type: String, required : true},
+    detailLevel: {type: String},
     name : {type: String, required : false},
     coursename : {type: String, required : true},
     scoredetail : {type:String},  // add required true once testing done
@@ -172,7 +172,8 @@ const scoreSchema = new mongoose.Schema({
     username: {type: String},
     homecourse: {type:String },
     scores : [scoredetailSchema],
-    handicapArray :[scorehandicapSchema]
+    handicapArray :[scorehandicapSchema],
+    lowScoresArray :[srSchema]
 
 });
 

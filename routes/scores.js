@@ -38,7 +38,9 @@ router.get('/:id', async  (req, res) =>{
 
 
 router.post('/:id',  async  (req, res) =>{
-     console.log("finding score user by id : ");
+     //console.log("finding score user by id : ");
+     const roundIndex = [0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5,6,6,7,8]; // counting rounds based on rounds played
+     const counters = "";
      const score = await Score.findOne({userid: req.params.id});
      
      
@@ -89,11 +91,39 @@ router.post('/:id',  async  (req, res) =>{
        // and exception is eith 0,1, or 2 based on diff between handicap and previous round handicapIndex 7-9.9 is 1, 10+ is 2
        
        score.handicapArray.push({handicap: req.body.handicap , date : req.body.date, dayIndex : index, handicapIndex: 0, lhiIndex:0, exception : 0, rn : req.body.rn});
-       console.log("what should be pushed into  ha " + JSON.stringify(score.handicapArray[score.handicapArray.length -1]));
+       //console.log("what should be pushed into  ha " + JSON.stringify(score.handicapArray[score.handicapArray.length -1]));
        tempArray = calcHI(score.handicapArray);
        // +++ tempArray is a sorted array by date
        score.handicapArray = calcHIndex(tempArray);
+      //  console.log("before counters assignment" + tempArray.lowScores);
+      // counters = score.handicapArray.lowScores;
+      //  console.log("after counters assignment, before delete");
+      //  delete score.handicapArray.lowScores;
+      //  console.log("after delete");
+      //  console.log("value of counters " + counters);
+       
+
+
        score.handicap = score.handicapArray[score.handicapArray.length -1].handicapIndex;
+       let low = 0;
+       let lowScores=[];
+       
+      if(score.handicapArray.length < 20) {low = 0}
+      
+      else {low = score.handicapArray.length - 20}
+      console.log("after low value" + low);
+      for(i=score.handicapArray.length-1;i>=low ;i--) {
+        lowScores.push({h : score.handicapArray[i].handicap, r : score.handicapArray[i].rn })
+
+      }
+      console.log("Items in array:  "  + lowScores.length);
+      lowScores = simple2(lowScores);
+      let v = lowScores.length;
+      //console.log("value of v " + v + "  index value of v " + roundIndex[v]);
+      lowScores.splice(roundIndex[v-1]);
+      console.log("lowScores after splice " + JSON.stringify(lowScores));
+       //put scoring round function here and save to root of score.
+       score.lowScoresArray = lowScores;
        score.username = req.body.username;
        insertPoint = 0;
         
@@ -146,6 +176,11 @@ function calcHI(ha) {
 
 function simple(x) {
   x= x.sort(function(a,b){return a.handicap - b.handicap});
+  return x;
+}
+
+function simple2(x) {
+  x= x.sort(function(a,b){return a.h - b.h});
   return x;
 }
 
@@ -206,12 +241,24 @@ function calcHIndex(ta) {
 
   let z;
   for(let i=0; i <ta.length; i++) {
+
+   // console.log("value of i " + i);
  
     let except = 0;
     let x = 0;
     
-    let y =[]; //
+    let y =[]; 
     let arr = [];
+
+    if(i > 1 ) {
+      x= parseInt(tempA[i-1].handicapIndex) - parseInt(ta[i].handicap);
+      except = getExcept(x);
+
+    }
+
+    if(i > 1 && i < 19) {
+       tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
+    }
 
 // insert if here and wrap around switch statement.  Simply push entries into tempA
 
@@ -221,124 +268,70 @@ function calcHIndex(ta) {
             tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : 0, handicapIndex : ta[i].handicap, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
        break;
        case 3: 
-       	  x= parseInt(tempA[i-1].handicapIndex) - parseInt(ta[i].handicap);
-       	  
-       	 // except = getExcept(x);
-          tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
-          z = ss(getLowScores(tempA));
-          console.log("value of z " + JSON.stringify(z));
+           z = ss(getLowScores(tempA));
          tempA[i].handicapIndex = z[0].h - 2;
-  
        break;
        case 4:
-         x= tempA[i-1].handicapIndex - ta[i].handicap;
-       	 except = getExcept(x);
-       	 tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
          z = ss(getLowScores(tempA));
-         //console.log(z);
          tempA[i].handicapIndex = z[0].h - 1;
        break;
        case 5:
-         x= tempA[i-1].handicapIndex - ta[i].handicap;
-       	 except = getExcept(x);
-       	 tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
          z = ss(getLowScores(tempA));
          tempA[i].handicapIndex = z[0].h;
        break;
        case 6:
-         x= tempA[i-1].handicapIndex - ta[i].handicap;
-        // console.log(" exception number " + x + " first [0] of tempA.hi " + tempA[0].handicapIndex + "  handicap from previous iteration " +  ta[i].handicap + "  i value " + i);
-       	 except = getExcept(x);
-       	 tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
          z = ss(getLowScores(tempA));
          tempA[i].handicapIndex = (z[0].h+z[1].h) / 2 -1;
-    //     for(let c=0;c<tempA.length;c++) {
-    //      //  console.log(tempA[c]);
-    //     }
        break;
        case 7:
        case 8:
-         x= tempA[i-1].handicapIndex - ta[i].handicap;
-       //  console.log(" exception number " + x + " first [0] of tempA.hi " + tempA[0].handicapIndex + "  handicap from previous iteration " +  ta[i].handicap + "  i value " + i);
-       	 except = getExcept(x);
-       	 tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
          z = ss(getLowScores(tempA));
          tempA[i].handicapIndex = (z[0].h+z[1].h) / 2 ;
-    //     for(let c=0;c<tempA.length;c++) {
-    //      //  console.log(tempA[c]);
-    //     }
-       
        break;
        case 9:
        case 10:
        case 11:
-         x= tempA[i-1].handicapIndex - ta[i].handicap;
-   //      console.log(" exception number " + x + " first [0] of tempA.hi " + tempA[0].handicapIndex + "  handicap from previous iteration " +  ta[i].handicap + "  i value " + i);
-       	 except = getExcept(x);
-       	 tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
          z = ss(getLowScores(tempA));
          tempA[i].handicapIndex = (z[0].h+z[1].h+z[2].h) / 3;
        break;
        case 12:
        case 13:
        case 14:
-         x= tempA[i-1].handicapIndex - ta[i].handicap;
-     //   console.log(" exception number " + x + " first [i-1] of tempA.hi " + tempA[i-1].handicapIndex + "  handicap from previous iteration " +  ta[i].handicap + "  i value " + i);
-       	 except = getExcept(x);
-       	 tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
          z = ss(getLowScores(tempA));
          tempA[i].handicapIndex = (z[0].h+z[1].h+z[2].h+z[3].h) / 4 ;
-    
        break;
-       
        case 15:
        case 16:
-         x= tempA[i-1].handicapIndex - ta[i].handicap;
-      //   console.log(" exception number " + x + " first [i-1] of tempA.hi " + tempA[i-1].handicapIndex + "  handicap from previous iteration " +  ta[i].handicap + "  i value " + i);
-       	 except = getExcept(x);
-       	 tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
          z = ss(getLowScores(tempA));
          tempA[i].handicapIndex = (z[0].h+z[1].h+z[2].h+z[3].h+z[4].h) / 5 ;
-       
+         console.log(JSON.stringify(z));
        break;
        case 17:
        case 18:
-         x= tempA[i-1].handicapIndex - ta[i].handicap;
-        // console.log(" exception number " + x + " first [i-1] of tempA.hi " + tempA[i-1].handicapIndex + "  handicap from previous iteration " +  ta[i].handicap + "  i value " + i);
-       	 except = getExcept(x);
-       	 tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
          z = ss(getLowScores(tempA));
          tempA[i].handicapIndex = (z[0].h+z[1].h+z[2].h+z[3].h+z[4].h+z[5].h) / 6 ;
-              
        break;
        case 19:
-         x= tempA[i-1].handicapIndex - ta[i].handicap;
-       // console.log(" exception number " + x + " first [i-1] of tempA.hi " + tempA[i-1].handicapIndex + "  handicap from previous iteration " +  ta[i].handicap + "  i value " + i);
-       	 except = getExcept(x);
-       	 tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
          z = ss(getLowScores(tempA));
          tempA[i].handicapIndex = (z[0].h+z[1].h+z[2].h+z[3].h+z[4].h+z[5].h+z[6].h) / 7 ;
-        
-       
        break;
        default:
-      // console.log("  ");
-      // console.log(" *********************");
-      // console.log("  Value of i " + i);
-      
+
+      // this block strictly for calculating LHI 
+      //  start LHI 
        let ind = i-1;
        let counter ;
-       //if(i==19) {counter = 18}
+
        if(i==19) {counter = 0}
        else counter = i - 20; 
        let lhiArr = [];
        //console.log("Ind: " + ind);
        
-       let cd = new Date(tempA[ind].date);    // i is 19, ind is 18.  date of cd should be may 15
+       let cd = new Date(tempA[ind].date);    // these are previous iterations, new values not pushed yet
        
       // console.log(" value of ind " + ind  +  "   value of counter  " + counter);
-       
-       while(ind >= counter) {  
+      // while(ind >= counter) {   
+       while(ind >= 0) {  
       
        let prev = new Date(tempA[ind].date);
        
@@ -354,9 +347,9 @@ function calcHIndex(ta) {
        ind --;
        }
        //console.log("  lhiArr values... collects all handicap indexes for 1 year time frame  "  + JSON.stringify(lhiArr));
-         x= tempA[i-1].handicapIndex - ta[i].handicap;
+       //  x= tempA[i-1].handicapIndex - ta[i].handicap;
          
-       	 except = getExcept(x);
+      // 	 except = getExcept(x);
        	 
        //	console.log( "  exceptions being calculated....handicap of score compared to previous HI: " + except); 
        	 
@@ -386,38 +379,24 @@ function calcHIndex(ta) {
          }
          else if (temphdiff < 5 && temphdiff > 3) {
           // console.log("soft cap occurred. temphdiff is : " + temphdiff);
+          //
            tempA[i].handicapIndex = templhi + (((temphdiff - 3) / 2) + 3); 
          }
          else tempA[i].handicapIndex = temphandicap ;
          
          if(tempA[i].handicapIndex < tempA[i].lhiIndex) {tempA[i].lhiIndex = tempA[i].handicapIndex  }
-         
-        // console.log("  final posted entry for the tempA array: " + JSON.stringify(tempA[i]));
-       
-       // have to look at soft and hard caps against lowhandicapindex
-       // have to get 20 latest scores only
-       
-     
+        
      }
-  
+    // if(i+1==ta.length) {
+      
+    //  tempA.lowScores = JSON.stringify(z);
+    //  //console.log("afer push of z into lowScores:  " + tempA.lowScores);      
+    // }
   }
- //console.log("What's in z " + JSON.stringify(z));
-  //tempA.lowScores.push(z);
-  //console.log("Low Scores " + JSON.stringify(tempA.lowScores));
+  
   return tempA;
 }
 	 
-
 // End of calcHIIndex===========================
-
-
-
-//  Posting or updating Tee location.  Requires a course id and will send "new" for a new teeid otherwise it sends the teeid.
-
-
-
-
-
-
 
 module.exports = router;
