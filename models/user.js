@@ -53,6 +53,11 @@ const userSchema = new mongoose.Schema({
     isadmin: {type: Boolean, default: "false"},
     status: {type: String, required : true, default: "Enabled"},
     gender: {type: String, required : true, default: "Unknown"},
+    homeCourse: {type: String},
+    country : {type: String},
+    countryCode : {type: String},
+    birthdate : {type: Date},
+    nickname : {type: String},
     roles : {type: Array},
     notes : {type: String}
 
@@ -79,6 +84,11 @@ function validateUser(user) {
         isadmin : Joi.any().allow(["false" , "true"]),
         status : Joi.string().required(),
         gender : Joi.string().required(),
+        homeCourse : Joi.string(),
+        country : Joi.string(),
+        countryCode : Joi.string(),
+        birthdate : Joi.string(),
+        nickname : Joi.string(),
         roles  : Joi.array(),
         notes  : Joi.string().max(2000)   
     } 
@@ -91,8 +101,13 @@ function validateUpdate(user) {
         name: Joi.string().min(settings.minname).max(settings.maxname).required(),
         email: Joi.string().min(5).max(50).required().email(),
         gender : Joi.string().required(),
-	oldpassword : Joi.string(),
-	password : Joi.string()
+        homeCourse : Joi.string(),
+	    oldpassword : Joi.string(),
+	    password : Joi.string(),
+        country : Joi.string(),
+        countryCode : Joi.string(),
+        birthdate : Joi.string(),
+        nickname : Joi.string()
     } 
 
     return Joi.validate(user,schema , {presence : "required"});

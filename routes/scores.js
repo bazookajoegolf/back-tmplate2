@@ -30,6 +30,7 @@ router.get('/:id', async  (req, res) =>{
 
 	const score = await Score.findOne({userid: req.params.id});
 	//console.log(JSON.stringify(score.handicap + score.scores.length));
+  
 	if(score) return res.status(200).send({message : "ok", scores: score});
 	else return res.status(200).send({message : "ok", scores: "new"});
     
@@ -47,6 +48,7 @@ router.post('/:id',  async  (req, res) =>{
      if(score)  {
 
        score.scores.push(req.body);
+       
        let jj = new Date(req.body.date);
        let mm = jj.getMonth();
        let yy = jj.getFullYear();
@@ -73,15 +75,15 @@ router.post('/:id',  async  (req, res) =>{
           }
          if(!insertPoint && (jj < kk)) {
           insertPoint = i;
-          console.log("Insert Point: " + insertPoint + " the Date in hcArray: " + kk );
-          console.log("Entries in handicapArray: " + score.handicapArray.length);
+        //  console.log("Insert Point: " + insertPoint + " the Date in hcArray: " + kk );
+       //   console.log("Entries in handicapArray: " + score.handicapArray.length);
         }
          
          
        }
        if(!insertPoint) {
          insertPoint = score.handicapArray.length - 1;
-         console.log(" InsertPoint last entry: " + insertPoint);
+       //  console.log(" InsertPoint last entry: " + insertPoint);
        }
        
        // +++++ just added the exception above
@@ -93,8 +95,12 @@ router.post('/:id',  async  (req, res) =>{
        score.handicapArray.push({handicap: req.body.handicap , date : req.body.date, dayIndex : index, handicapIndex: 0, lhiIndex:0, exception : 0, rn : req.body.rn});
        //console.log("what should be pushed into  ha " + JSON.stringify(score.handicapArray[score.handicapArray.length -1]));
        tempArray = calcHI(score.handicapArray);
+       //printArray(tempArray ); //correct
        // +++ tempArray is a sorted array by date
+       //console.log(JSON.stringify(tempArray));
        score.handicapArray = calcHIndex(tempArray);
+       console.log("whats posted from calcHIndex");
+       printArray( score.handicapArray ); // correct
       //  console.log("before counters assignment" + tempArray.lowScores);
       // counters = score.handicapArray.lowScores;
       //  console.log("after counters assignment, before delete");
@@ -179,6 +185,11 @@ function simple(x) {
   return x;
 }
 
+function dateSort(x) {
+  x= x.sort(function(a,b){return a.date - b.date});
+  return x;
+}
+
 function simple2(x) {
   x= x.sort(function(a,b){return a.h - b.h});
   return x;
@@ -204,16 +215,23 @@ function getLowScores(xxx) {
    if(xxx.length > 20) {max = parseInt(xxx.length) - 20}
    let re = 0;  // is running exception total
    let yy = [];
-   for(let j=max;j < xxx.length;j++) {
+  // for(let j=max;j < xxx.length;j++) {
+    for(let j=xxx.length-1;j >= max;j--) {
       re+= xxx[j].exception;  
       yy.push({h : xxx[j].handicap - re, r : xxx[j].rn});
    }
   // if(xxx.length > 19) {console.log( "the array of number after exception applied "+ yy);}
+  console.table(yy);
   return yy;
          
 
 }
 
+function printArray(x ) {
+  for(let i=0;i<x.length;i++) {
+    console.log("HDCP: " + x[i].handicap +  " date: " +  x[i].date + " dayIndex: " + x[i].dayIndex + " hIndex: " + x[i].handicapIndex);
+  }
+}
 // beginning of calcHIIndex ====================
 
 function calcHIndex(ta) {
@@ -258,6 +276,7 @@ function calcHIndex(ta) {
 
     if(i > 1 && i < 19) {
        tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
+       console.log("is this doing anything");
     }
 
 // insert if here and wrap around switch statement.  Simply push entries into tempA
@@ -304,7 +323,7 @@ function calcHIndex(ta) {
        case 16:
          z = ss(getLowScores(tempA));
          tempA[i].handicapIndex = (z[0].h+z[1].h+z[2].h+z[3].h+z[4].h) / 5 ;
-         console.log(JSON.stringify(z));
+       //  console.log(JSON.stringify(z));
        break;
        case 17:
        case 18:

@@ -165,6 +165,11 @@ router.put('/:id', auth,  async (req ,res) =>{
           user.name = req.body.name;
           user.email = convertEMail(req.body.email);
           user.gender = req.body.gender;
+          user.homeCourse = req.body.homeCourse;
+          user.birthdate = req.body.birthdate;
+          user.nickname = req.body.nickname;
+          user.country = req.body.country;
+          user.countryCode = req.body.countryCode;
        
         }
         catch (err) {

@@ -2,5 +2,5 @@
     "name" : "My app in developments",
     "mail" : {"host" :"dev-mail-server"},
     "db"   : "mongodb+srv://mongoservice:MoBinf0rd1@https://data.mongodb-api.com/app/data-qxuwi/endpoint/data/v1",
-    "host"  : "http://host.template.baz:4200"
+    "host"  : "http://pc01000.harvestenergy.ca:4200"
 }

@@ -49,7 +49,8 @@ router.post('/',  async (req, res) => {
     user.lastLogin = Date.now();
 	const saveLastLogin = await user.save();
 	console.log(saveLastLogin);
-    res.status(200).send({"token":token, "gender": user.gender, "userid": user._id, "email" : user.email});
+    res.status(200).send({"token":token, "gender": user.gender, "userid": user._id, "email" : user.email, "homeCourse" : user.homeCourse
+                          ,"country": user.country, "countryCode" : user.countryCode, "birthdate" : user.birthdate, "nickname" : user.nickname,"name" : user.name});
    
     //res.send(_.pick(user, ['_id','name','email']));
 });

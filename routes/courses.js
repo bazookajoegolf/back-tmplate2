@@ -32,7 +32,7 @@ router.get('/:id', async  (req, res) =>{
 router.post('/',  async  (req, res) =>{
    
    const c = await Course.findOne({url: req.body.url});
-   console.log("finding course by url : " + c);
+  // console.log("finding course by url : " + c);
      if(c)  {return res.status(400).send({message : "Website already exists"});  }
 
      const course = new Course(req.body);
@@ -147,6 +147,7 @@ router.put('/:id/:teeid', async  (req, res) =>{
 	} else {
 	//console.log("wtf");
 	//console.log("payload received:  " +JSON.stringify( payload));
+	payload._id = tee;
 	
 	console.log("course id:  " + req.params.id + "    tee  " + tee );
 	const doc = await Course.findOneAndUpdate({_id : req.params.id}
