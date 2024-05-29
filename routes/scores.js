@@ -83,7 +83,7 @@ router.post('/:id',  async  (req, res) =>{
        }
        if(!insertPoint) {
          insertPoint = score.handicapArray.length - 1;
-       //  console.log(" InsertPoint last entry: " + insertPoint);
+       //  ///console.log(" InsertPoint last entry: " + insertPoint);
        }
        
        // +++++ just added the exception above
