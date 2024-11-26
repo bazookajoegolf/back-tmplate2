@@ -38,6 +38,20 @@ router.get('/:id', async  (req, res) =>{
 });
 
 
+router.get('/:id /:yr', async  (req, res) =>{
+	//console.log("in scores get id");
+	// console.log("in scores router, get by id: " + req.params.id);
+
+	const score = await Score.find({userid: req.params.id, $elemMatch: {year : req.params.yr}});
+  
+//	console.log(JSON.stringify(score));
+  
+	if(score) return res.status(200).send({message : "ok", scores: score});
+	else return res.status(200).send({message : "ok", scores: "new"});
+    
+
+});
+
 router.post('/:id',  async  (req, res) =>{
      //console.log("finding score user by id : ");
      const roundIndex = [0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5,6,6,7,8]; // counting rounds based on rounds played
@@ -99,7 +113,7 @@ router.post('/:id',  async  (req, res) =>{
        // +++ tempArray is a sorted array by date
        //console.log(JSON.stringify(tempArray));
        score.handicapArray = calcHIndex(tempArray);
-       console.log("whats posted from calcHIndex");
+    //   console.log("whats posted from calcHIndex");
        printArray( score.handicapArray ); // correct
       //  console.log("before counters assignment" + tempArray.lowScores);
       // counters = score.handicapArray.lowScores;
@@ -117,17 +131,17 @@ router.post('/:id',  async  (req, res) =>{
       if(score.handicapArray.length < 20) {low = 0}
       
       else {low = score.handicapArray.length - 20}
-      console.log("after low value" + low);
+ //     console.log("after low value" + low);
       for(i=score.handicapArray.length-1;i>=low ;i--) {
         lowScores.push({h : score.handicapArray[i].handicap, r : score.handicapArray[i].rn })
 
       }
-      console.log("Items in array:  "  + lowScores.length);
+   //   console.log("Items in array:  "  + lowScores.length);
       lowScores = simple2(lowScores);
       let v = lowScores.length;
       //console.log("value of v " + v + "  index value of v " + roundIndex[v]);
       lowScores.splice(roundIndex[v-1]);
-      console.log("lowScores after splice " + JSON.stringify(lowScores));
+    //  console.log("lowScores after splice " + JSON.stringify(lowScores));
        //put scoring round function here and save to root of score.
        score.lowScoresArray = lowScores;
        score.username = req.body.username;
@@ -153,7 +167,7 @@ router.post('/:id',  async  (req, res) =>{
      score.username = req.body.username;
      score.handicapArray = {handicap: req.body.handicap , date : req.body.date,dayIndex : 0, handicapIndex : req.body.handicap, lhiIndex:0, exception : 0, rn : req.body.rn};
      //console.log(JSON.stringify(score));
-     
+     console.log("holes played: " + score.scores.holesplayed);
      await score.save().then(x=> {
      	console.log("saving new score posting");
      	return res.status(200).send({message: "Score Saved", posted: true});
@@ -221,7 +235,7 @@ function getLowScores(xxx) {
       yy.push({h : xxx[j].handicap - re, r : xxx[j].rn});
    }
   // if(xxx.length > 19) {console.log( "the array of number after exception applied "+ yy);}
-  console.table(yy);
+  // console.table(yy);
   return yy;
          
 
@@ -229,7 +243,7 @@ function getLowScores(xxx) {
 
 function printArray(x ) {
   for(let i=0;i<x.length;i++) {
-    console.log("HDCP: " + x[i].handicap +  " date: " +  x[i].date + " dayIndex: " + x[i].dayIndex + " hIndex: " + x[i].handicapIndex);
+    //console.log("HDCP: " + x[i].handicap +  " date: " +  x[i].date + " dayIndex: " + x[i].dayIndex + " hIndex: " + x[i].handicapIndex);
   }
 }
 // beginning of calcHIIndex ====================
@@ -276,7 +290,7 @@ function calcHIndex(ta) {
 
     if(i > 1 && i < 19) {
        tempA.push({date: ta[i].date, handicap: ta[i].handicap, exception : except, handicapIndex : 0, lhiIndex:54, dayIndex : ta[i].dayIndex ,rn : ta[i].rn });
-       console.log("is this doing anything");
+     //  console.log("is this doing anything");
     }
 
 // insert if here and wrap around switch statement.  Simply push entries into tempA
