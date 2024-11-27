@@ -412,3 +412,4 @@ Require stack:
  2024-01-30T17:35:29.659Z [error logging] error: MongooseError: Operation `adminsettings.findOne()` buffering timed out after 10000ms
  2024-01-30T17:35:49.808Z [error logging] error: ReferenceError: err is not defined
  2024-01-30T17:35:49.828Z [error logging] error: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+ 2024-11-27T21:04:08.150Z [error logging] error: Error: listen EADDRINUSE: address already in use :::3000
