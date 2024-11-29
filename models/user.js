@@ -1,7 +1,7 @@
 
 const express = require('express');
 const Joi = require('joi');
-Joi.objectId = require('joi-objectid')(Joi);
+//Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 
 const config = require('config');
@@ -53,8 +53,8 @@ const userSchema = new mongoose.Schema({
     isadmin: {type: Boolean, default: "false"},
     status: {type: String, required : true, default: "Enabled"},
     gender: {type: String, required : true, default: "Unknown"},
-    homeCourse: {type: String},
-    country : {type: String},
+    homeCourse: {type: String, default: " "},
+    country : {type: String, default: " "},
     countryCode : {type: String},
     birthdate : {type: Date},
     nickname : {type: String},
@@ -76,12 +76,13 @@ const User = mongoose.model('user', userSchema);
 
 
 function validateUser(user) {
-    const schema = {
-        //_id: Joi.string(),
-        name: Joi.string().min(5).max(50).required(),
-        email: Joi.string().min(5).max(50).required().email(),
-        password: Joi.string().min(5).max(100).required(),
-        isadmin : Joi.any().allow(["false" , "true"]),
+   // console.log("validating user: " + JSON.stringify(user));
+    const schema = Joi.object({
+        _id: Joi.string(),
+         name: Joi.string().min(5).max(50).required(),
+         email: Joi.string().min(5).max(50).required().email(),
+         password: Joi.string().min(5).max(100).required(),
+         isadmin : Joi.any().allow("false" , "true"),
         status : Joi.string().required(),
         gender : Joi.string().required(),
         homeCourse : Joi.string(),
@@ -91,13 +92,16 @@ function validateUser(user) {
         nickname : Joi.string(),
         roles  : Joi.array(),
         notes  : Joi.string().max(2000)   
-    } 
-
-    return Joi.validate(user,schema , {presence : "required"});
+    }); 
+    // const {error, value} = schema.validate(user);
+    // console.log(error);
+    // console.log(value);
+    return schema.validate(user);
 }
 
 function validateUpdate(user) {
-    const schema = {
+   // console.log(JSON.stringify(user));
+    const schema = Joi.object({
         name: Joi.string().min(settings.minname).max(settings.maxname).required(),
         email: Joi.string().min(5).max(50).required().email(),
         gender : Joi.string().required(),
@@ -108,24 +112,27 @@ function validateUpdate(user) {
         countryCode : Joi.string(),
         birthdate : Joi.string(),
         nickname : Joi.string()
-    } 
+    })
 
-    return Joi.validate(user,schema , {presence : "required"});
+    return schema.validate(user);
 }
 
 function adminValidateUpdate(user) {
-    const schema = {
+   console.log(JSON.stringify(user));
+    const schema = Joi.object({
         name: Joi.string().min(settings.minname).max(settings.maxname).required(),
         email: Joi.string().min(5).max(50).required().email(),
-        isadmin : Joi.any().allow(["false" , "true"]),
+        isadmin : Joi.any().allow("false" , "true"),
        // password: Joi.string().min(settings.minpassword).max(settings.maxpassword).required(),
         status : Joi.string().required(),
-	gender : Joi.string().required(),
+	    gender : Joi.string().required(),
         roles  : Joi.array(),
         notes  : Joi.string().min(0).max(settings.maxnotes)   
-    } 
-
-    return Joi.validate(user,schema );
+    }); 
+    const {error, value} = schema.validate(user);
+    console.log("error:" + JSON.stringify(error));
+    console.log("value: " + value);
+    return schema.validate(user);
 
 }
 

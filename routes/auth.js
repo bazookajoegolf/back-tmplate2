@@ -23,8 +23,9 @@ router.get('/settings', async (req, res) => {
     
 });
 router.post('/',  async (req, res) => {
+    //console.log(JSON.stringify(req.body));
     const {error} = validate(req.body);
-	console.log("trying to authorize");
+  
    
     if (error) {
         // 400 bad request
@@ -59,12 +60,16 @@ router.post('/',  async (req, res) => {
 
 
 function validate(req) {
-    const schema = {
+   
+    const schema = Joi.object({
         email: Joi.string().min(5).max(50).required().email(),
         password: Joi.string().required() // password: Joi.string().min(settings.minpassword).max(settings.maxpassword).required()
-    } 
+    })
 
-    return Joi.validate(req, schema , {presence : "required"});
+   // console.log(schema);
+
+  //  return Joi.validate(req, schema , {presence : "required"});
+  return schema.validate(req.body);
 }
 
 module.exports = router;
