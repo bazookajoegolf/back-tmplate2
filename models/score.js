@@ -29,8 +29,7 @@ const scoredetailSchema = new mongoose.Schema({
 
     courseid: {type: String, required : true},
     teeid : {type: String, required : true},
- //   detailLevel: {type: String},
-    name : {type: String, required : false},
+    name : {type: String, required : true},
     coursename : {type: String, required : true},
     scoredetail : {type:String},  // add required true once testing done
     teename : {type: String, required : true},
