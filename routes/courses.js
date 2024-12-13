@@ -22,6 +22,8 @@ router.get('/', async  (req, res) =>{
 router.get('/:id', async  (req, res) =>{
 	console.log("courses get specific Course");
 	 console.log(req.params.id);
+	// var a = /[a-z]/.test('x');
+	// console.log("Testing for lowercase: " + (a).);
 
 	const course = await Course.findById( req.params.id);
      res.status(200).send(course);

@@ -89,7 +89,7 @@ router.post('/',  async (req, res) => {
 	
     let mailOptions = {
         from: settings.smtpsendas,
-        to:  'brad.zingle@harvestenergy.ca',         //req.body.email,
+        to:   req.body.email,
         subject: 'New User Confirmation',
         html: htmlbody
     };
