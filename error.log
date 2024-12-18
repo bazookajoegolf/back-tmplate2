@@ -1,0 +1,9 @@
+ 2024-12-16T20:16:37.561Z [error logging] error: MongooseError: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+ 2024-12-16T20:16:47.564Z [error logging] error: MongooseError: Operation `adminsettings.findOne()` buffering timed out after 10000ms
+ 2024-12-16T20:17:31.377Z [error logging] error: ReferenceError: err is not defined
+ 2024-12-16T20:20:32.229Z [error logging] error: MongooseError: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+ 2024-12-16T20:20:42.242Z [error logging] error: MongooseError: Operation `adminsettings.findOne()` buffering timed out after 10000ms
+ 2024-12-16T20:21:37.287Z [error logging] error: MongooseError: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+ 2024-12-16T20:21:47.288Z [error logging] error: MongooseError: Operation `adminsettings.findOne()` buffering timed out after 10000ms
+ 2024-12-16T20:22:26.813Z [error logging] error: MongooseError: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+ 2024-12-16T20:22:36.817Z [error logging] error: MongooseError: Operation `adminsettings.findOne()` buffering timed out after 10000ms
