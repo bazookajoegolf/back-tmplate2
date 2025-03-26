@@ -23,7 +23,7 @@ router.get('/settings', async (req, res) => {
     
 });
 router.post('/',  async (req, res) => {
-    //console.log(JSON.stringify(req.body));
+    console.log(JSON.stringify(req.body));
     const {error} = validate(req.body);
   
    

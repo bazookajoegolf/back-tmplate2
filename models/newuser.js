@@ -16,7 +16,8 @@ const newUserSchema = new mongoose.Schema({
     status: {type: String, required : true, default: "Enabled"},
     gender: {type: String, required : true, default: "Unknown"},
     roles : {type: Array},
-    notes : {type: String}
+    notes : {type: String},
+    buddy : {type: Array}
     
 
 });

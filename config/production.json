@@ -1,5 +1,5 @@
 {
-    "name" : "My app in production",
+    "name" : "BazGolf Handicap",
     "mail" : {"host" :"prod-mail-server"},
     "host"  : "host.template.baz:4200"
 }

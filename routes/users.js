@@ -32,6 +32,22 @@ router.get('/me', auth, async (req, res) => {
     
 });
 
+// search for users in system.  Used in buddy system
+
+router.get('/:email', auth, async (req, res) => {
+
+    // request only contains header token which contains _id
+    // can return more items here
+    const user = await User.findOne( {email:req.params.email});
+     // console.log("hello  " + user.name);
+    if(!user) return  res.status(404).send({message : "User not found"});
+    else {return  res.status(200).send({message : "User Exists"});}
+    
+    //res.send(req.params.id);
+    // req.query would get the values url ?=sortBy=2
+    
+});
+
 // create an account
 
 router.post('/',  async (req, res) => {

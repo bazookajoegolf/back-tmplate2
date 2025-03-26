@@ -2,7 +2,7 @@
 
 
 require('express-async-errors');
-//const fs = require('fs');
+const fs = require('fs');
 //const https = require('https');
 
 const config = require('config');
@@ -15,6 +15,8 @@ const cors = require('cors');
 // load express
 const express = require('express')
 const app = express();
+var http = require('http');
+var https = require('https');
 
 
 //config start 
@@ -54,19 +56,29 @@ app.get('/', (req, res)=> {
 
 const port = process.env.PORT || 3000;
 
-//const options = {
-//	key: fs.readFileSync('./server.key'),
-//	cert: fs.readFileSync('./server.cert'),
-//	requestCert: false,
-//	rejectUnauthorized: false
-//	};
+// const options = {
+// 	key: fs.readFileSync('./certs/key.pub','utf8'),
+// 	cert: fs.readFileSync('./certs/certs.pub','utf8'),
+// 	requestCert: false,
+// 	rejectUnauthorized: false
+// 	};
 
-//var server = https.createServer(options, app);
+	var privateKey = fs.readFileSync('certs/localhost.pem');
+	var certificate = fs.readFileSync('certs/localhost-key.pem');	
+	
+	var credentials = {key: certificate, cert: privateKey};
+     var httpsServer = https.createServer(credentials, app);
 
-const tm = Date(Date.now()).toLocaleString();
+   //var httpsServer = https.createServer(options, app);
+
+var httpServer = http.createServer(app);
+httpServer.listen(3000);
+httpsServer.listen(3030);
+
+ const tm = Date(Date.now()).toLocaleString();
 
 //console.log("The port in the environment is  " + port);
-app.listen(port, () => console.log(`${tm} : Listening on port ${port} `));
+//app.listen(port, () => console.log(`${tm} : Listening on port ${port} `));
 
 //server.listen(port, ()=> console.log(`listening on port ${server.address().port}}`));
 

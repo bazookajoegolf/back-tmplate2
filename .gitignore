@@ -6,4 +6,4 @@
 /startup/database.js
 /exception.log
 /error.log
-certs/
+/certs

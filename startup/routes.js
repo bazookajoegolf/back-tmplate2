@@ -10,6 +10,7 @@ const auth =  require('../routes/auth');
 const admin = require('../admin/admin');
 const setting = require('../admin/settings');
 const reset = require('../routes/reset');
+const buddy = require('../routes/buddy');
 
 module.exports = function (app) {
 
@@ -22,6 +23,7 @@ app.use('/api/auth', auth);
 app.use('/api/admin', admin);
 app.use('/api/setting', setting);
 app.use('/api/reset', reset);
+app.use('/api/buddy', buddy);
 app.use(error);
 
 
