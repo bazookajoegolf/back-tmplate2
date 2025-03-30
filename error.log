@@ -112,3 +112,5 @@
  2025-03-25T01:43:27.283Z [error logging] error: ReferenceError: i is not defined
  2025-03-25T01:43:51.216Z [error logging] error: ReferenceError: i is not defined
  2025-03-25T01:46:10.619Z [error logging] error: ReferenceError: settings is not defined
+ 2025-03-30T03:58:27.754Z [error logging] error: SyntaxError: Unexpected token ':'
+ 2025-03-30T04:40:27.263Z [error logging] error: SyntaxError: Unexpected token '{'

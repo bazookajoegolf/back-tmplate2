@@ -38,10 +38,14 @@ router.get('/:email', auth, async (req, res) => {
 
     // request only contains header token which contains _id
     // can return more items here
-    const user = await User.findOne( {email:req.params.email});
-     // console.log("hello  " + user.name);
-    if(!user) return  res.status(404).send({message : "User not found"});
-    else {return  res.status(200).send({message : "User Exists"});}
+    await User.findOne( {email:req.params.email})
+                 .then((user)=>{
+                    if(!user) return  res.status(404).send({status:false , message : "User not found"}); 
+                    else {return  res.status(200).send({status:true, message : "User Exists",gender:user.gender,name:user.name});}
+                 });
+   // console.log("hello  " + user.name);
+   // if(!user) return  res.status(404).send({status:false , message : "User not found"});
+   // else {return  res.status(200).send({status:true, message : "User Exists"});}
     
     //res.send(req.params.id);
     // req.query would get the values url ?=sortBy=2

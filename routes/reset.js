@@ -92,19 +92,18 @@ router.post('/:token', async (req, res) => {
     // and email address match the reset entry in the database.
     
  
-   console.log(req.body.email + "  " + req.params.token);
+   console.log(req.body.newpassword + "  " + req.params.token);
     const resetUser = await Reset.findOne({email : req.body.email, resetPasswordToken : req.params.token });
-    console.log(resetUser);
+   // console.log(resetUser);
     if(!resetUser) {
         
 	return res.status(404).send({message : "Password NOT Reset"});
     }
      const currentTime = new Date;
 	 
-	 console.log("Current time: " ,currentTime );
+	// console.log("Current time: " ,currentTime );
     if(resetUser.resetPasswordExpire > currentTime) {
-    
-        console.log("getting here");
+
         const user = await User.findOne({email: req.body.email});
 
         if(!user) return res.status(400).send({message : "An error occurred with your request"});
@@ -115,8 +114,10 @@ router.post('/:token', async (req, res) => {
 			return res.status(401).send({message : "Minimum password length is " + settings.minpassword });
 		}
         user.password = await bcrypt.hash(req.body.newpassword, salt);
-             
-        user.save();
+        console.log("just before saving");     
+        user.save().then((err,settings)=>{
+            console.log(err);
+        });
        
         return res.status(200).send({message : "Password successfully Reset. "});
 
