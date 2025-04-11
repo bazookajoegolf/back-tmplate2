@@ -19,7 +19,8 @@ const buddySchema = new mongoose.Schema({
     gender: {type: String, required : true, default: "Unknown"},
     allowedToPost : {type: Array},
     ICanPost : {type: Array},
-    requests: {type: Array}
+    pendingScores : {type: Array}
+   
 
 });
 
