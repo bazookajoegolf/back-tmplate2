@@ -24,6 +24,30 @@ router.get('/:email', async  (req, res) =>{
 
 });
 
+
+router.get('/:email/:rn', async  (req, res) =>{
+    //console.log("in scores get id");
+    //console.log("in buddy router, get by id: " + req.params.email);
+
+    const buddylist = await Buddy.findOne({email: req.params.email});
+    console.log( req.params.rn);
+    
+    if(buddylist) {
+    for(let i=0;i<buddylist.pendingScores.length;i++) {
+        if(buddylist.pendingScores[i].rn == req.params.rn){
+            const ret = buddylist.pendingScores[i];
+            console.log(ret);
+            return res.status(200).send({message : "ok", scoring: ret});
+        }
+    }
+
+    }
+    //console.log(JSON.stringify(score.handicap + score.scores.length));
+    else {res.status(404).send({message : "No Entry found", buddy: null});}
+    
+
+});
+
 router.post('/:email', async  (req, res) =>{
        
     let me = await Buddy.findOne({email: req.params.email});
@@ -142,6 +166,21 @@ router.patch('/', async (req, res) => {
 
 });
 
+router.patch('/:email/:rn', async (req, res) => {
+    //this task removes a buddy pending score
+    console.log(req.params.email + "  " + req.params.rn);
+     await Buddy.updateOne(
+        {email: req.params.email},
+        {$pull: {pendingScores: {rn:parseInt(req.params.rn)}}}
+    ).then(result => {
+        console.log("Updated Buddy: ", result);
+        return res.status(200).send({message : "Entry Removed", buddy: result});
+    })
+    .catch(err =>{
+        return res.status(404).send({message : "Score unavailable"});
+    })
+
+});
 
 
 router.post('/', async (req, res) => {

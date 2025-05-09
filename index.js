@@ -41,8 +41,13 @@ require('./startup/debug-dev')(app);
 
 app.use(express.static('first'));
 
+app.use(express.static(__dirname + '/Dist/mobile'));
+app.get('/mobile', (req, res)=> {
+  res.redirect('/index.html');
+  
+ 
+});
 app.use(express.static(__dirname + '/Dist'));
-
 app.get('/', (req, res)=> {
     //res.send('hello you');
     //res.send(" home page");
